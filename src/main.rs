@@ -30,7 +30,7 @@ fn get_json_data() -> task::Tasks {
 
 fn main() {
     let args = args::CliArgs::parse();
-    let data: task::Tasks = get_json_data();
+    let mut data: task::Tasks = get_json_data();
     println!("{:?}", data);
 
     match args.command {
@@ -39,7 +39,10 @@ fn main() {
         args::Command::Delete { id } => {}
         args::Command::MarkInProgress { id } => {}
         args::Command::MarkDone { id } => {}
-        args::Command::List { list_command } => {}
-        _ => println!("Hi"),
+        args::Command::List { list_command } => match list_command {
+            args::ListCommand::Done => {}
+            args::ListCommand::Todo => {}
+            args::ListCommand::InProgress => {}
+        },
     }
 }
