@@ -11,6 +11,8 @@ use serde_json::json;
 
 mod add_task;
 mod delete_task;
+mod list_task;
+mod mark_task;
 mod update_task;
 
 #[derive(Debug, PartialEq, Eq, Deserialize)]
@@ -29,13 +31,6 @@ struct Task {
     updated_at: SystemTime,
     deleted: bool,
 }
-
-fn mark_in_progress(id: u32) {}
-fn mark_done(id: u32) {}
-fn list() {}
-fn list_done() {}
-fn list_todo() {}
-fn list_in_progress() {}
 
 #[derive(Debug, Deserialize)]
 struct Data {
