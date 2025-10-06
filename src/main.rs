@@ -7,8 +7,8 @@ use std::{
 
 use serde_json::json;
 
-use crate::add_task::add_task;
 use crate::update_task::update_task;
+use crate::{add_task::add_task, task::Tasks};
 
 mod add_task;
 mod args;
@@ -31,6 +31,14 @@ fn get_json_data() -> task::Tasks {
     serde_json::from_str(&contents).unwrap()
 }
 
+fn write_json_data(tasks: &Tasks) {
+    let path = Path::new("tasks.json");
+    let file = File::create(path).unwrap();
+
+    let writer = BufWriter::new(file);
+    serde_json::to_writer_pretty(writer, tasks).unwrap();
+}
+
 fn main() {
     let args = args::CliArgs::parse();
     let mut tasks: task::Tasks = get_json_data();
@@ -51,4 +59,6 @@ fn main() {
             args::ListCommand::InProgress => {}
         },
     }
+
+    write_json_data(&tasks);
 }
