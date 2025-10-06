@@ -7,7 +7,11 @@ use std::{
 
 use serde_json::json;
 
-use crate::{add_task::add_task, task::Tasks};
+use crate::{
+    add_task::add_task,
+    mark_task::{mark_done, mark_in_progress},
+    task::Tasks,
+};
 use crate::{delete_task::delete_task, update_task::update_task};
 
 mod add_task;
@@ -53,8 +57,12 @@ fn main() {
         args::Command::Delete { id } => {
             delete_task(&mut tasks, id);
         }
-        args::Command::MarkInProgress { id } => {}
-        args::Command::MarkDone { id } => {}
+        args::Command::MarkInProgress { id } => {
+            mark_in_progress(&mut tasks, id);
+        }
+        args::Command::MarkDone { id } => {
+            mark_done(&mut tasks, id);
+        }
         args::Command::List { list_command } => match list_command {
             args::ListCommand::Done => {}
             args::ListCommand::Todo => {}

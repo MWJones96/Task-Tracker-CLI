@@ -8,7 +8,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_add() {
+    fn test_list() {
         assert_eq!(1 + 2, 3);
     }
 }
