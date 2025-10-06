@@ -1,16 +1,12 @@
 use std::time::SystemTime;
 
-use crate::Status;
-use crate::Task;
-
-fn update_task(id: u32, new_description: &str) -> Task {
-    Task {
+fn update_task(id: u32, new_description: &str) -> crate::task::Task {
+    crate::task::Task {
         id: u32::MAX,
         description: String::from("test"),
-        status: Status::Todo,
+        status: crate::task::Status::Todo,
         created_at: SystemTime::now(),
         updated_at: SystemTime::now(),
-        deleted: false,
     }
 }
 

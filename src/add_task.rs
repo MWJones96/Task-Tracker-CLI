@@ -1,7 +1,6 @@
 use std::time::SystemTime;
 
-use crate::Status;
-use crate::Task;
+use crate::task::{Status, Task};
 
 fn add_task(id: u32, description: String) -> Task {
     let now: SystemTime = SystemTime::now();
@@ -11,7 +10,6 @@ fn add_task(id: u32, description: String) -> Task {
         status: Status::Todo,
         created_at: now,
         updated_at: now,
-        deleted: false,
     }
 }
 
@@ -31,13 +29,11 @@ mod tests {
         assert_eq!(Status::Todo, t.status);
         assert!(t.created_at <= now && t.updated_at <= now);
         assert!(t.created_at == t.updated_at);
-        assert_eq!(false, t.deleted);
 
         assert_eq!(2, t2.id);
         assert_eq!(String::from("test2"), t2.description);
         assert_eq!(Status::Todo, t2.status);
         assert!(t.created_at <= t2.created_at && t.updated_at <= t2.updated_at);
         assert!(t2.created_at == t2.updated_at);
-        assert_eq!(false, t2.deleted);
     }
 }
