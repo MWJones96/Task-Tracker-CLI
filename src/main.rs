@@ -8,6 +8,7 @@ use std::{
 use serde_json::json;
 
 use crate::add_task::add_task;
+use crate::update_task::update_task;
 
 mod add_task;
 mod args;
@@ -38,7 +39,9 @@ fn main() {
         args::Command::Add { description } => {
             add_task(&mut tasks, description);
         }
-        args::Command::Update { id, description } => {}
+        args::Command::Update { id, description } => {
+            update_task(&mut tasks, id, description);
+        }
         args::Command::Delete { id } => {}
         args::Command::MarkInProgress { id } => {}
         args::Command::MarkDone { id } => {}
