@@ -21,7 +21,7 @@ mod update_task;
 fn get_json_data() -> task::Tasks {
     let path = Path::new("tasks.json");
     if !path.exists() {
-        let data = json!({ "next_id": 1, "tasks": {} });
+        let data = json!({ "nextId": 1, "tasks": {} });
         let file = File::create(path).unwrap();
         let writer = BufWriter::new(file);
         serde_json::to_writer_pretty(writer, &data).unwrap();

@@ -1,4 +1,4 @@
-use clap::{Parser, Subcommand, command};
+use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
 pub(crate) struct CliArgs {
