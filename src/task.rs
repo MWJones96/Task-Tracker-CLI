@@ -1,4 +1,4 @@
-use std::{collections::HashMap, time::SystemTime};
+use std::{collections::HashMap, fmt::Display, time::SystemTime};
 
 use serde::Deserialize;
 
@@ -20,6 +20,6 @@ pub(crate) struct Task {
 
 #[derive(Debug, Deserialize)]
 pub(crate) struct Tasks {
-    next_id: u32,
-    tasks: HashMap<u32, Task>,
+    pub(crate) next_id: u32,
+    pub(crate) tasks: HashMap<u32, Task>,
 }

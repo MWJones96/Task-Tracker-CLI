@@ -7,6 +7,8 @@ use std::{
 
 use serde_json::json;
 
+use crate::add_task::add_task;
+
 mod add_task;
 mod args;
 mod delete_task;
@@ -30,11 +32,12 @@ fn get_json_data() -> task::Tasks {
 
 fn main() {
     let args = args::CliArgs::parse();
-    let mut data: task::Tasks = get_json_data();
-    println!("{:?}", data);
+    let mut tasks: task::Tasks = get_json_data();
 
     match args.command {
-        args::Command::Add { description } => {}
+        args::Command::Add { description } => {
+            add_task(&mut tasks, description);
+        }
         args::Command::Update { id, description } => {}
         args::Command::Delete { id } => {}
         args::Command::MarkInProgress { id } => {}
