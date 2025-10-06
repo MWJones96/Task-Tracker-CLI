@@ -26,7 +26,7 @@ pub(crate) enum Command {
     },
     List {
         #[command(subcommand)]
-        list_command: ListCommand,
+        list_command: Option<ListCommand>,
     },
 }
 

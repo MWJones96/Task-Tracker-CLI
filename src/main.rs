@@ -9,6 +9,7 @@ use serde_json::json;
 
 use crate::{
     add_task::add_task,
+    list_task::{list, list_done, list_in_progress, list_todo},
     mark_task::{mark_done, mark_in_progress},
     task::Tasks,
 };
@@ -64,9 +65,22 @@ fn main() {
             mark_done(&mut tasks, id);
         }
         args::Command::List { list_command } => match list_command {
-            args::ListCommand::Done => {}
-            args::ListCommand::Todo => {}
-            args::ListCommand::InProgress => {}
+            Some(args::ListCommand::Done) => {
+                let joined = list_done(&tasks).join("\n");
+                println!("{}", joined);
+            }
+            Some(args::ListCommand::Todo) => {
+                let joined = list_todo(&tasks).join("\n");
+                println!("{}", joined);
+            }
+            Some(args::ListCommand::InProgress) => {
+                let joined = list_in_progress(&tasks).join("\n");
+                println!("{}", joined);
+            }
+            None => {
+                let joined = list(&tasks).join("\n");
+                println!("{}", joined);
+            }
         },
     }
 
