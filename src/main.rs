@@ -1,16 +1,17 @@
-use clap::{Parser, Subcommand};
-use serde::{Deserialize, Serialize};
+use clap::Parser;
+use serde::Deserialize;
 use std::{
-    env,
     fs::{File, read_to_string},
-    io::{BufReader, BufWriter},
+    io::BufWriter,
     path::Path,
     time::SystemTime,
 };
 
 use serde_json::json;
 
+use crate::args::CliArgs;
 mod add_task;
+mod args;
 mod delete_task;
 mod list_task;
 mod mark_task;
@@ -39,45 +40,8 @@ struct Data {
     tasks: Vec<Task>,
 }
 
-#[derive(Parser)]
-struct Args {
-    #[command(subcommand)]
-    command: Command,
-}
-
-#[derive(Subcommand, Clone)]
-enum Command {
-    Add {
-        description: String,
-    },
-    Update {
-        id: u32,
-        description: String,
-    },
-    Delete {
-        id: u32,
-    },
-    MarkInProgress {
-        id: u32,
-    },
-    MarkDone {
-        id: u32,
-    },
-    List {
-        #[command(subcommand)]
-        list_command: ListCommand,
-    },
-}
-
-#[derive(Subcommand, Clone)]
-enum ListCommand {
-    Done,
-    Todo,
-    InProgress,
-}
-
 fn main() {
-    let args = Args::parse();
+    let args = CliArgs::parse();
 
     let path = Path::new("tasks.json");
     if !path.exists() {
