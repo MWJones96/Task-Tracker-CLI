@@ -3,11 +3,11 @@ use clap::{Parser, Subcommand, command};
 #[derive(Parser)]
 pub(crate) struct CliArgs {
     #[command(subcommand)]
-    command: Command,
+    pub(crate) command: Command,
 }
 
 #[derive(Subcommand, Clone)]
-enum Command {
+pub(crate) enum Command {
     Add {
         description: String,
     },
@@ -31,7 +31,7 @@ enum Command {
 }
 
 #[derive(Subcommand, Clone)]
-enum ListCommand {
+pub(crate) enum ListCommand {
     Done,
     Todo,
     InProgress,

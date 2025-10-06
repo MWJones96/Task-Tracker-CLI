@@ -32,4 +32,14 @@ fn main() {
     let args = args::CliArgs::parse();
     let data: task::Tasks = get_json_data();
     println!("{:?}", data);
+
+    match args.command {
+        args::Command::Add { description } => {}
+        args::Command::Update { id, description } => {}
+        args::Command::Delete { id } => {}
+        args::Command::MarkInProgress { id } => {}
+        args::Command::MarkDone { id } => {}
+        args::Command::List { list_command } => {}
+        _ => println!("Hi"),
+    }
 }
