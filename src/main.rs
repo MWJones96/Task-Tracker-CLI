@@ -1,3 +1,4 @@
+use clap::{Parser, Subcommand};
 use serde::{Deserialize, Serialize};
 use std::{
     env,
@@ -38,7 +39,25 @@ struct Data {
     tasks: Vec<Task>,
 }
 
+#[derive(Parser)]
+struct Args {
+    #[command(subcommand)]
+    command: Command,
+}
+
+#[derive(Subcommand, Clone)]
+enum Command {
+    Add,
+    Update,
+    Delete,
+    MarkInProgress,
+    MarkDone,
+    List,
+}
+
 fn main() {
+    let args = Args::parse();
+
     let path = Path::new("tasks.json");
     if !path.exists() {
         let data = json!({ "task_count": 0, "tasks": [] });
@@ -49,34 +68,4 @@ fn main() {
 
     let contents = read_to_string(path).unwrap();
     let data: Data = serde_json::from_str(&contents).unwrap();
-
-    let args: Vec<String> = env::args().collect();
-    println!("{:?}", args);
-    if args.len() < 2 {
-        println!("Valid commands: add, update, delete, mark-in-progress, mark-done, list");
-        return;
-    }
-    match &args[1][..] {
-        "add" => {
-            println!("add");
-        }
-        "update" => {
-            println!("update");
-        }
-        "delete" => {
-            println!("delete");
-        }
-        "mark-in-progress" => {
-            println!("mark-in-progress");
-        }
-        "mark-done" => {
-            println!("mark-done");
-        }
-        "list" => {
-            println!("list");
-        }
-        _ => {
-            println!("not valid")
-        }
-    }
 }
