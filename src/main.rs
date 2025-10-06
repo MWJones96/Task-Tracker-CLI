@@ -47,11 +47,11 @@ struct Args {
 
 #[derive(Subcommand, Clone)]
 enum Command {
-    Add,
-    Update,
-    Delete,
-    MarkInProgress,
-    MarkDone,
+    Add { description: String },
+    Update { id: u32, description: String },
+    Delete { id: u32 },
+    MarkInProgress { id: u32 },
+    MarkDone { id: u32 },
     List,
 }
 
