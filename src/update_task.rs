@@ -4,8 +4,9 @@ use crate::task::{Task, Tasks};
 
 pub(crate) fn update_task(tasks: &mut Tasks, id: u32, new_description: String) -> bool {
     if tasks.tasks.contains_key(&id) {
-        let mut task: &mut Task = tasks.tasks.get_mut(&id).unwrap();
+        let task: &mut Task = tasks.tasks.get_mut(&id).unwrap();
         task.description = new_description.to_owned();
+        task.updated_at = SystemTime::now();
         println!("Task with ID {id} updated successfully to \"{new_description}\"");
         return true;
     }
@@ -54,5 +55,7 @@ mod tests {
             "changed description",
             tasks.tasks.get(&1).unwrap().description
         );
+        let task: &Task = tasks.tasks.get(&1).unwrap();
+        assert!(task.created_at < task.updated_at);
     }
 }

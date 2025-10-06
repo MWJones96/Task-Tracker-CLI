@@ -12,7 +12,10 @@ pub(crate) fn add_task(tasks: &mut Tasks, description: String) {
         updated_at: now,
     };
 
-    println!("Task successfully added: {:?}", task);
+    println!(
+        "Task successfully added: ID: {}, Description: {}",
+        tasks.next_id, task.description
+    );
     tasks.tasks.insert(tasks.next_id, task);
     tasks.next_id += 1;
 }
